@@ -5,7 +5,7 @@ module.exports = {
     entry: './frontend/src/main.js',
     mode: 'development',
     output: {
-      path: __dirname + './frontend/dist',
+      path: __dirname + '/frontend/dist',
       filename: 'bundle.js'
     },
     devServer: {
