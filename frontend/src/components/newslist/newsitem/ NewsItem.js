@@ -10,6 +10,7 @@ export default class NewsItem extends Component{
     render(){
         return(
             <li className="newsitem newsitem--size newsitem--theme">
+                <img src={this.props.data.urlToImage} className="newsitem__image newsitem__image--size"></img>
                 {this.props.data.title}
             </li>
         )
