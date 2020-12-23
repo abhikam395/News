@@ -1,0 +1,32 @@
+.article{
+    display: flex;
+    flex-direction: column;
+
+    &--size{
+
+    }
+
+    &__tag{
+        cursor: pointer;
+        color: white;
+        margin: 0 30px 30px 0;
+        padding: 10px;
+        border-radius: 30px;
+        font-size: 12px;
+
+        &--size{
+            width: auto;
+        }
+
+        &--theme{
+            background-color: black;
+        }
+    }
+
+    &__para{
+        margin: 50px 0;
+        font-size: 14px;
+        font-size: 16px;
+    }
+}
+
