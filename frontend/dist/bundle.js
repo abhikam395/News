@@ -49,7 +49,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getNews\": () => /* binding */ getNews\n/* harmony export */ });\n/* harmony import */ var _config_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../config/api */ \"./config/api.js\");\n/* harmony import */ var _frontend_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../frontend/store */ \"./frontend/store/index.js\");\n/* harmony import */ var _frontend_store_actions_news_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../frontend/store/actions/news-actions */ \"./frontend/store/actions/news-actions.js\");\n\n\n\nfunction getNews(category) {\n  var api = (0,_config_api__WEBPACK_IMPORTED_MODULE_0__.getApi)(category);\n  fetch(api).then(function (res) {\n    if (res.status !== 200) {\n      console.log('Looks like there was a problem. Status Code: ' + res.status);\n      return;\n    }\n\n    res.json().then(function (data) {\n      _frontend_store__WEBPACK_IMPORTED_MODULE_1__.default.dispatch((0,_frontend_store_actions_news_actions__WEBPACK_IMPORTED_MODULE_2__.newsAction)(data.articles));\n    });\n  }).catch(function (err) {\n    console.log(err);\n  });\n}\n\n//# sourceURL=webpack://newsapp/./apis/news-api.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getNews\": () => /* binding */ getNews\n/* harmony export */ });\n/* harmony import */ var _config_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../config/api */ \"./config/api.js\");\n/* harmony import */ var _frontend_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../frontend/store */ \"./frontend/store/index.js\");\n/* harmony import */ var _frontend_store_actions_news_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../frontend/store/actions/news-actions */ \"./frontend/store/actions/news-actions.js\");\n/* harmony import */ var _frontend_utils_dummy_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../frontend/utils/dummy-data */ \"./frontend/utils/dummy-data.js\");\n\n\n\n\nvar array = new Array(20).fill((0,_frontend_utils_dummy_data__WEBPACK_IMPORTED_MODULE_3__.getDummyData)());\nfunction getNews(category) {\n  var api = (0,_config_api__WEBPACK_IMPORTED_MODULE_0__.getApi)(category);\n  fetch(api).then(function (res) {\n    // console.log(api)s\n    if (res.status !== 200) {\n      console.log('Looks like there was a problem. Status Code: ' + res.status);\n      return;\n    }\n\n    res.json().then(function (data) {\n      _frontend_store__WEBPACK_IMPORTED_MODULE_1__.default.dispatch((0,_frontend_store_actions_news_actions__WEBPACK_IMPORTED_MODULE_2__.newsAction)(data.articles));\n    }); // store.dispatch(newsAction(array))\n  }).catch(function (err) {\n    console.log(err);\n  }); // store.dispatch(newsAction(array))\n}\n\n//# sourceURL=webpack://newsapp/./apis/news-api.js?");
 
 /***/ }),
 
@@ -60,7 +60,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getApi\": () => /* binding */ getApi\n/* harmony export */ });\nvar getApi = function getApi(category) {\n  return \"https://newsapi.org/v2/top-headlines?category=\".concat(category, \"&country=us&apiKey=36ed0b2a6f43435ba60485473f119cc4\");\n};\n\n//# sourceURL=webpack://newsapp/./config/api.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getApi\": () => /* binding */ getApi\n/* harmony export */ });\nvar proxyurl = \"https://cors-anywhere.herokuapp.com/\";\nvar getApi = function getApi(category) {\n  return \"\".concat(proxyurl, \"https://newsapi.org/v2/top-headlines?category=\").concat(category, \"&country=us&apiKey=36ed0b2a6f43435ba60485473f119cc4\");\n};\n\n//# sourceURL=webpack://newsapp/./config/api.js?");
 
 /***/ }),
 
@@ -182,6 +182,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"newsReducer\": () => /* binding */ newsReducer\n/* harmony export */ });\n/* harmony import */ var _actions_action_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../actions/action-types */ \"./frontend/store/actions/action-types.js\");\n\nvar initialState = {\n  data: []\n};\nfunction newsReducer() {\n  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;\n  var action = arguments.length > 1 ? arguments[1] : undefined;\n\n  switch (action.type) {\n    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__.GET_NEWS:\n      return {\n        data: action.data\n      };\n\n    case _actions_action_types__WEBPACK_IMPORTED_MODULE_0__.CLEAR_NEWS:\n      return {\n        data: []\n      };\n  }\n\n  return state;\n}\n\n//# sourceURL=webpack://newsapp/./frontend/store/reducers/news-reducer.js?");
+
+/***/ }),
+
+/***/ "./frontend/utils/dummy-data.js":
+/*!**************************************!*\
+  !*** ./frontend/utils/dummy-data.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getDummyData\": () => /* binding */ getDummyData\n/* harmony export */ });\nfunction getDummyData() {\n  return {\n    author: 'New York Post',\n    urlToImage: 'https://a57.foxnews.com/static.foxbusiness.com/foxbusiness.com/content/uploads/2018/02/0/0/2e8077e9-2016-12-06T113106Z_2_LYNXMPECB50OE_3_GODADDY-RESULTS.jpg?ve=1&tl=1',\n    title: 'Boeing 737-8 Max: Air Canada jet shuts down an engine and diverts after mechanical issue - The Guardian',\n    description: 'Internet domain behemoth GoDaddy sent employees an email promising a Christmas bonus — that turned out to actually be a computer security test.',\n    publishedAt: '2020-12-26T03:21:21Z',\n    content: 'Might as well have offered a lump of coal.\\r\\nInternet domain behemoth GoDaddy sent employees an email promising a Christmas bonus — that turned out to actually be a computer security test.\\r\\n<table><tr… [+1645 chars]'\n  };\n}\n\n//# sourceURL=webpack://newsapp/./frontend/utils/dummy-data.js?");
 
 /***/ }),
 

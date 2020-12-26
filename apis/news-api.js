@@ -7,25 +7,21 @@ let array = new Array(20).fill(getDummyData())
 
 export function getNews(category){
     let api = getApi(category);
-    // fetch(api).then(res => {
-    //     // setTimeout(() => {
-    //     //     if(res.articles != undefined)
-    //     //         store.dispatch(newsAction(array))
-    //     // }, 5000)
-    //     // console.log(api)s
-    //     // if (res.status !== 200) {
-    //     //     console.log('Looks like there was a problem. Status Code: ' +
-    //     //     res.status);
+    fetch(api).then(res => {
+        // console.log(api)s
+        if (res.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+            res.status);
             
-    //     //     return;
-    //     // }   
-    //     // res.json().then(data => {
-    //     //     store.dispatch(newsAction(data.articles))
-    //     // })
-    //     store.dispatch(newsAction(array))
-    // })
-    // .catch(err => {
-    //     console.log(err)
-    // })
-    store.dispatch(newsAction(array))
+            return;
+        }   
+        res.json().then(data => {
+            store.dispatch(newsAction(data.articles))
+        })
+        // store.dispatch(newsAction(array))
+    })
+    .catch(err => {
+        console.log(err)
+    })
+    // store.dispatch(newsAction(array))
 }
