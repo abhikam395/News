@@ -18,7 +18,7 @@ module.exports = {
         new HtmlWebpackPlugin({  // Also generate a test.html
             filename: 'index.html',
             template: '/backend/public/index.html'
-        })
+        }),
     ],
     module: {
       rules: [

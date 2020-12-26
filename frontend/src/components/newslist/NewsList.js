@@ -1,12 +1,13 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
+import { connect } from 'react-redux';
+
 import './news.scss';
 
-import NewsItem from './newsitem/ NewsItem';
-import { connect } from 'react-redux';
 import { getNews } from './../../../../apis/news-api';
-
 import { clearNews } from './../../../store/actions/news-actions';
-import LoadingComponent from './../common/LoadingComponent';
+
+const NewsItem = React.lazy(() => import('./newsitem/ NewsItem'));
+const LoadingComponent  = React.lazy(() => import('./../common/LoadingComponent'));
 
 const NewsListComponent =  class NewsList extends Component{
 
@@ -51,7 +52,9 @@ const NewsListComponent =  class NewsList extends Component{
                 )
             }
         else{
-            return <LoadingComponent state="true"></LoadingComponent>
+            return <Suspense fallback={<div>Loading...</div>}>
+                <LoadingComponent state="true"></LoadingComponent>
+            </Suspense>
         }    
     }
 }
