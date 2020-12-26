@@ -2,22 +2,22 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './frontend/src/main.js',
+    entry: '/frontend/src/main.js',
     mode: 'development',
     output: {
-      path: __dirname + '/frontend/dist',
-      filename: 'bundle.js'
+      filename: 'bundle.js',
+      path: __dirname + '/frontend/dist'
     },
     devServer: {
         historyApiFallback:{
-            index:'./frontend/dist/index.html'
+            index:'frontend/dist/'
         },
     },
     plugins: [
         new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({  // Also generate a test.html
             filename: 'index.html',
-            template: './backend/public/index.html'
+            template: '/backend/public/index.html'
         })
     ],
     module: {

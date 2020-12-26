@@ -1,63 +1,37 @@
 import React, { Component } from "react";
 import './news.scss';
 
-import { getApi } from '../../../../config/api';
 import NewsItem from './newsitem/ NewsItem';
+import { connect } from 'react-redux';
+import { getNews } from './../../../../apis/news-api';
 
-export default class NewsList extends Component{
+import { clearNews } from './../../../store/actions/news-actions';
+import LoadingComponent from './../common/LoadingComponent';
+
+const NewsListComponent =  class NewsList extends Component{
 
     constructor(props){
         super(props);
         this.getNewsList = this.getNewsList.bind(this);
         this.state = {
-            news : [],
             selectedTag: 'Business'
         }
-        this.fetchNews();
+        getNews('Business')
     }
 
     componentDidUpdate(){
         let tag = this.props.selectedTag;
         if(tag != this.state.selectedTag){
-            this.setState({news: [], selectedTag: tag})
-            this.fetchNews(tag)
+            //clear news
+            this.props.clear;
+            this.setState({selectedTag: tag})
+            getNews(tag);
         }
     }
 
-    /**
-     * fetch news
-     */
-    fetchNews(category = 'Business'){
-        fetch(getApi(category)).
-            then(res => {
-                if (res.status !== 200) {
-                    console.log('Looks like there was a problem. Status Code: ' +
-                    res.status);
-                    return;
-                }   
-                res.json().then(data => {
-                    this.setNews(data['articles'])
-                    // console.log(data)
-                })
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-    
-
-    setNews(news){
-        this.setState({
-            news: news
-        })
-    }
-
-    getNews(){
-        return this.state.news;
-    }
-
     getNewsList(){
-        return this.getNews().map((data, index) => (this.getNewsItem(data, index)))
+        let { data } = this.props;
+        return data.map((data, index) => (this.getNewsItem(data, index)))
     }
 
     getNewsItem(data, index){
@@ -67,10 +41,33 @@ export default class NewsList extends Component{
     }
 
     render(){
-        return(
-            <ul className="news center">
-                {this.getNewsList()}
-            </ul>
-        )
+        let { data } = this.props;
+        
+        if(data.length){
+            return(
+                <ul className="news center">
+                    {this.getNewsList()}
+                </ul>
+                )
+            }
+        else{
+            return <LoadingComponent state="true"></LoadingComponent>
+        }    
     }
 }
+
+const mapStateToProps = function(store){
+    return {
+        data: store.newsState.data
+    }
+}
+
+const mapDispatchToProps = function(dispatch){
+    return {
+        clear: function(){
+            dispatch(clearNews)
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsListComponent);

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './article.scss';
 
+import moment from 'moment';
+
 export default class ArticleScreen extends Component{
     constructor(props){
         super(props);
@@ -11,7 +13,7 @@ export default class ArticleScreen extends Component{
         let data = this.props.location.state.data;
         this.news = {
             image: data.urlToImage,
-            date: data.publishedAt,
+            date: moment(data.publishedAt).fromNow(),
             author: data.author,
             title: data.title,
             description: data.description,

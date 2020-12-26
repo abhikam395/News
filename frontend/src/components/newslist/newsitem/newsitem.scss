@@ -29,3 +29,14 @@
         }
     }
 }
+
+@media only screen and (max-width: 600px){
+    .newsitem{
+        margin: 0px;
+        box-shadow: none;
+
+        &--size{
+            width: 100%;
+        }
+    }
+}

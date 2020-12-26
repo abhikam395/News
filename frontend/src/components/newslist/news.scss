@@ -3,5 +3,12 @@
     display: flex;
     flex-wrap: wrap;
     list-style: none;
-    // justify-content: center;
+}
+
+
+@media only screen and (max-width: 900px){
+    .news{
+        justify-content: center;
+        align-items: center;
+    }
 }
